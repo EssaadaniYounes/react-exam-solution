@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Carte from "./Carte";
 
-function CartesContainer({ livres }) {
+function CartesContainer() {
+  const livres = useSelector((state) => state.allLivres.livres);
   return (
     <div style={styles.container}>
       {livres.map((livre) => (

@@ -1,6 +1,16 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { increaseLikes } from "./redux/actions";
 function Carte({ livre }) {
+  const [refresh, setRefresh] = useState(false);
+  const dispatch = useDispatch();
+  const handleIncreaseLikes = () => {
+    let data = dispatch(increaseLikes(livre));
+    setRefresh(!refresh);
+  };
+  useEffect(() => {
+    console.log("I DID THIS TO RERENDER THE COMPONENT BCS THERE'S A BUG");
+  }, [refresh]);
   return (
     <div
       style={{
@@ -31,14 +41,15 @@ function Carte({ livre }) {
         <button
           style={{
             borderColor: "#8989f0",
-            color: "#8989f0",
-            backgroundColor: "white",
+            color: livre.likes == 0 ? "white" : "#8989f0",
+            backgroundColor: livre.likes == 0 ? "#8989f0" : "white",
             outlineColor: "transparent",
             borderRadius: "8px",
             padding: "8px",
           }}
+          onClick={handleIncreaseLikes}
         >
-          Like (1)
+          Like ({livre.likes})
         </button>
       </div>
     </div>
